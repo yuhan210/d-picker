@@ -1,5 +1,6 @@
+
 class Utility(object):
-    # utility function options: 0-1, hinge, square, exponential
+    # utility function options: 0-1, hinge, square, exponential, logistic
     function = None 
     fn_type =  "0-1"
 
@@ -19,7 +20,11 @@ class Utility(object):
         elif fun_type.find("exp") >= 0:
             self.fn_type = "exp"
             self.function = Exponential(para)
-        
+    
+        elif fun_type.find("log") >= 0:
+            self.fn_type = "log"
+            self.function = Logistic(para)
+                
         else:
             print "Undefined utility function", fun_type
             exit(-5)
@@ -44,26 +49,44 @@ class Zero_one():
 
 
 class Hinge():
-    def __init__(self):
-                
+    # max {1 - wx, 0}
+    w = 0
+    def __init__(self, w):
+        self.w = w
+                    
     def getUtility(self, x):
-        
+        hinge = 1/self.w * 1.0
+        if ( x > hinge )
+            return 0
+        else:
+            return (1 - self.w * x)
 
 class Square():
     # (1 - wx)^2
-
+    w = 0
     def __init__(self, w):
-        self.w = w;
+        self.w = w
         
     def getUtility(self, x):
-        hinge = 1/self.w
+        hinge = 1/self.w * 1.0
         if ( x > hinge ) 
             return 0;
         else:
             return (1 - self.w * x) * (1 - self.w * x)
 
+class Logistic():
+    # (ln 2)^(-1) ln(1 + e^(-wx))
+    w = 0
+    def __init__(self, w):
+        self.w = w
+
+    def getUtility(self, x):
+        return ln(1 + e^(-self.w * x))/ln(2)
+
 class Exponential():
-    def __init__(self):
+    
+    def __init__(self, w):
+        self.w = w
 
     def getUtility(self, x):
 
