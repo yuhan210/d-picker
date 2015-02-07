@@ -1,21 +1,36 @@
 class Utility(object):
     # utility function options: 0-1, hinge, square, exponential
     function = None 
-    
+    fn_type =  "0-1"
 
-    def __init__(self, function):
+    def __init__(self, fun_type, para):
+        if fun_type.find("0-1") >= 0:
+            self.fn_type = "0-1"
+            self.function = Zero_one(para)
+
+        elif fun_type.find("hinge") >= 0:
+            self.fn_type = "hinge"
+            self.function = Hinge()
+
+        elif fun_type.find("square") >= 0:
+            self.fn_type = "square"
+            self.function = Square(para)
+
+        elif fun_type.find("exp") >= 0:
+            self.fn_type = "exp"
+            self.function = Exponential(para)
         
-        self.function = Zero_one(5)
-        
+        else:
+            print "Undefined utility function", fun_type
+            exit(-5)
 
     def get_utility(self, x):
         print self.function.getUtility(x)
-
+        return self.function.getUtility(x)
 
 class Zero_one(): 
     # if (x > w) 1
     # else 0
-
     w = 0   
     def __init__(self, w):
         self.w = w;
@@ -24,7 +39,8 @@ class Zero_one():
         
         if (x <= self.w): 
             return 1
-        return 0
+        else:
+            return 0
 
 
 class Hinge():
