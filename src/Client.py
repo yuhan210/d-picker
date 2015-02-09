@@ -40,5 +40,5 @@ class Client(object):
 
     def getServed(self, cur_ts):
         score = utility_fn.get_utility(cur_ts - self.job_start_time)
-        served_hist += (cur_ts, score)
+        served_hist += [(cur_ts, score)]
         return score
