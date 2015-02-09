@@ -1,4 +1,5 @@
 import sys
+import matplotlib.pyplot as plt
 from Utility import *
 from Client import *
 
@@ -15,13 +16,13 @@ if __name__ == "__main__":
 
     # create a list of clients
     clients = []
+
+    xs = []
     for i in xrange(client_num):
-        client = Client("0-1", 4, 1)
-        client.jobCreation
-        clients += [Client("0-1", 4, 1)]       
-        # set job emission time
-        
-     
+        client = Client("0-1", 3000, 500, 500)
+        clients += [client]       
+        xs +=[client.getStartTime()]        
+    
     # each step, client with pending jobs determines whether to send a job with some nwk delay   
     cur_time = 0
     while ( cur_time < sim_duration ):
