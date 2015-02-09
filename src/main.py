@@ -1,18 +1,32 @@
 import sys
 from Utility import *
+from Client import *
+
+## a discrete-time event simulator
 
 if __name__ == "__main__":
 
-    if ( len(sys.argv) != 2 ):
-        print "Usage:", sys.argv[0], " client_num" 
+    if ( len(sys.argv) != 3 ):
+        print "Usage:", sys.argv[0], " client_num sim_duration" 
         exit(-1)
 
+    client_num = int(sys.argv[1])
+    sim_duration = int(sys.argv[2])
+
     # create a list of clients
-    u = Utility("")
-    u.get_utility(8)
+    for i in xrange(client_num):
+        
     
-    sim_duration = 200000
+        u = Utility("")
+        u.get_utility(8)
+     
     # each step, client with pending jobs determines whether to send a job with some nwk delay   
-    while     
-   
-    #    
+    cur_time = 0
+    while ( cur_time < sim_duration ):
+        # update client info
+         
+        # update what scheduler sees
+
+        cur_time += 1
+
+   # simulation is over

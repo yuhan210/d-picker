@@ -16,7 +16,7 @@ Datacenter scheduling simulator
 
 - Distribution assumptions:
     1. Client job generation based on poisson
-    2. Client nwk delay (uplink/downlink?) follows normal
+    2. Client nwk delay fixed delay (will upgrade to normal dist.) 
 
 
 - Goal:
