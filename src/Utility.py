@@ -1,3 +1,4 @@
+import math
 
 class Utility(object):
     # utility function options: 0-1, hinge, square, exponential, logistic
@@ -56,7 +57,7 @@ class Hinge():
                     
     def getUtility(self, x):
         hinge = 1/self.w * 1.0
-        if ( x > hinge )
+        if ( x > hinge ):
             return 0
         else:
             return (1 - self.w * x)
@@ -69,7 +70,7 @@ class Square():
         
     def getUtility(self, x):
         hinge = 1/self.w * 1.0
-        if ( x > hinge ) 
+        if ( x > hinge ): 
             return 0;
         else:
             return (1 - self.w * x) * (1 - self.w * x)
@@ -81,12 +82,12 @@ class Logistic():
         self.w = w
 
     def getUtility(self, x):
-        return ln(1 + e^(-self.w * x))/ln(2)
+        return math.log(1 + math.exp(-self.w * x), 2)
 
 class Exponential():
     
     def __init__(self, w):
         self.w = w
 
-    def getUtility(self, x):
+#    def getUtility(self, x):
 
