@@ -13,5 +13,5 @@ class Greedy(object):
              
         best_job = max(filter(lambda x: x.getUtility(cur_time), jobs)) 
         score += best_job.getServed(cur_time)
-        print score
+        print "Time:", cur_time, "serve job:", best_job.getCid(), "receiving utility:", score
         return score        

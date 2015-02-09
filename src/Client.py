@@ -22,7 +22,15 @@ class Client(object):
         self.job_gen_para = job_para
         self.utility_fn = Utility(self.utility_fn_name, self.utility_para)
         self.genJob(0)
-             
+   
+    def getCid(self):
+        return self.cid
+         
+    def hasTimedOut(self, cur_ts):
+        if self.utility_fn.has_timedout(cur_ts):
+            return True
+        return False
+         
     def genJob(self, cur_ts):
         self.job_start_time = cur_ts + self.exponential(self.job_gen_para)
         self.job_arrival_time = self.job_start_time + self.nwk_delay
@@ -43,5 +51,7 @@ class Client(object):
     def getServed(self, cur_ts):
         score = self.utility_fn.get_utility(cur_ts - self.job_start_time)
         self.served_hist += [(cur_ts, score)]
-        job_start_time  
+        # once get served, reset job creation time, and arrival time
+        self.genJob(cur_ts) 
+          
         return score

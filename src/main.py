@@ -14,11 +14,14 @@ if __name__ == "__main__":
 
     client_num = int(sys.argv[1])
     sim_duration = int(sys.argv[2])
-
+    print "----- Simulation starts ------"
+    print "Client number:", client_num
+    print "Simulation length:", sim_duration 
     # create a list of clients
     clients = []
     for i in xrange(client_num):
-        client = Client(i, "0-1", 4000, 500, 200)
+        #client = Client(i, "hinge", 4000, 500, 200)
+        client = Client(i, "hinge", 1/4000.0, 500, 200)
         clients += [client]       
     
     # create scheduler
@@ -30,6 +33,9 @@ if __name__ == "__main__":
     while ( cur_time < sim_duration ):
         
         # update client info
+        timedout_clients = filter(lambda x: x.hasTimedOut(cur_time) , clients)
+        for tc in timedout_clients:
+            tc.genJob(cur_time)
         arrived_clients = filter(lambda x: x.getJobArrivalTime() <= cur_time, clients)
                 
         total_score += greedy.schedule(cur_time, arrived_clients) 
@@ -38,4 +44,4 @@ if __name__ == "__main__":
         cur_time += 1.0
 
    # simulation is over, get overall utility score
-    print total_score
+    print "Total score:", total_score

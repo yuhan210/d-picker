@@ -30,6 +30,9 @@ class Utility(object):
             print "Undefined utility function", fun_type
             exit(-5)
 
+    def has_timedout(self, x):
+        return self.function.hasTimedOut(x)
+
     def get_utility(self, x):
         return self.function.getUtility(x)
 
@@ -41,25 +44,34 @@ class Zero_one():
         self.w = w;
 
     def getUtility(self,x):
-        
         if (x <= self.w): 
             return 1.0
         else:
             return 0.0
 
+    def hasTimedOut(self, x):
+        if self.getUtility(x) == 0.0:
+            return True
+        return False
 
 class Hinge():
     # max {1 - wx, 0}
     w = 0
     def __init__(self, w):
         self.w = w
-                    
+                        
     def getUtility(self, x):
         hinge = 1/self.w * 1.0
         if ( x > hinge ):
             return 0
         else:
-            return (1 - self.w * x)
+            return (1.0 - self.w * x)
+
+    def hasTimedOut(self, x):
+        if self.getUtility(x) == 0.0:
+            return True
+        return False
+        
 
 class Square():
     # (1 - wx)^2
