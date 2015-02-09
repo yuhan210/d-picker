@@ -3,6 +3,7 @@ from Utility import *
 from random import *
 
 class Client(object):
+    cid = -1
     nwk_delay = -1.0
     utility_fn = None
     utility_fn_name = ""
@@ -12,8 +13,9 @@ class Client(object):
     job_start_time = 0
     served_hist = []
 
-    def __init__(self, utility_fn_name, utility_para, job_para, nwk_delay):
+    def __init__(self, cid, utility_fn_name, utility_para, job_para, nwk_delay):
         
+        self.cid = cid
         self.nwk_delay = nwk_delay
         self.utility_fn_name = utility_fn_name
         self.utility_para = utility_para
@@ -32,13 +34,14 @@ class Client(object):
         return self.job_arrival_time
 
     def getUtility(self, cur_ts):
-        if cur_ts > job_arrival_time:
+        if self.job_arrival_time > cur_ts:
             print "Error: job hasn't arrived yet!"
             exit(-1)
-        score = utility_fn.get_utility(cur_ts - self.job_start_time)
+        score = self.utility_fn.get_utility(cur_ts - self.job_start_time)
         return score
 
     def getServed(self, cur_ts):
-        score = utility_fn.get_utility(cur_ts - self.job_start_time)
-        served_hist += [(cur_ts, score)]
+        score = self.utility_fn.get_utility(cur_ts - self.job_start_time)
+        self.served_hist += [(cur_ts, score)]
+        job_start_time  
         return score

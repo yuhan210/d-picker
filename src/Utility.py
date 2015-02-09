@@ -31,22 +31,21 @@ class Utility(object):
             exit(-5)
 
     def get_utility(self, x):
-        print self.function.getUtility(x)
         return self.function.getUtility(x)
 
 class Zero_one(): 
     # if (x > w) 1
     # else 0
-    w = 0   
+    w = 0.0  
     def __init__(self, w):
         self.w = w;
 
     def getUtility(self,x):
         
         if (x <= self.w): 
-            return 1
+            return 1.0
         else:
-            return 0
+            return 0.0
 
 
 class Hinge():

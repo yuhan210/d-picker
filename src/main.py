@@ -18,22 +18,24 @@ if __name__ == "__main__":
     # create a list of clients
     clients = []
     for i in xrange(client_num):
-        client = Client("0-1", 3000, 500, 500)
+        client = Client(i, "0-1", 4000, 500, 200)
         clients += [client]       
     
     # create scheduler
     greedy = Greedy()
     
     # each step, client with pending jobs determines whether to send a job with some nwk delay   
-    cur_time = 0
+    cur_time = 0.0
+    total_score = 0.0
     while ( cur_time < sim_duration ):
         
         # update client info
         arrived_clients = filter(lambda x: x.getJobArrivalTime() <= cur_time, clients)
                 
-        greedy.schedule(cur_time, arrived_clients) 
+        total_score += greedy.schedule(cur_time, arrived_clients) 
+        
         # update what scheduler sees
-        cur_time += 1
+        cur_time += 1.0
 
    # simulation is over, get overall utility score
-
+    print total_score

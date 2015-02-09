@@ -6,6 +6,12 @@ class Greedy(object):
     def __init__(self): 
         w = 1      
     def schedule(self, cur_time, jobs):
-       
-        best_utility = max(filter(lambda x: x.getUtility(cur_time), jobs)) 
         
+        if len(jobs) == 0:
+            return 0.0
+        score = 0.0
+             
+        best_job = max(filter(lambda x: x.getUtility(cur_time), jobs)) 
+        score += best_job.getServed(cur_time)
+        print score
+        return score        
