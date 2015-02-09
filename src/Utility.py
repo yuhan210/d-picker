@@ -12,7 +12,7 @@ class Utility(object):
 
         elif fun_type.find("hinge") >= 0:
             self.fn_type = "hinge"
-            self.function = Hinge()
+            self.function = Hinge(para)
 
         elif fun_type.find("square") >= 0:
             self.fn_type = "square"
