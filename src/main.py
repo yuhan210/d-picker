@@ -14,19 +14,22 @@ if __name__ == "__main__":
     sim_duration = int(sys.argv[2])
 
     # create a list of clients
+    clients = []
     for i in xrange(client_num):
+        client = Client("0-1", 4, 1)
+        client.jobCreation
+        clients += [Client("0-1", 4, 1)]       
+        # set job emission time
         
-    
-        u = Utility("")
-        u.get_utility(8)
      
     # each step, client with pending jobs determines whether to send a job with some nwk delay   
     cur_time = 0
     while ( cur_time < sim_duration ):
         # update client info
-         
+                
         # update what scheduler sees
 
         cur_time += 1
 
-   # simulation is over
+   # simulation is over, get overall utility score
+
