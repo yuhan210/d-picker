@@ -21,13 +21,12 @@ class Client(object):
     job_hardness = -1 # time required to process the job
     served_hist = []
 
-    def __init__(self, cid, utility_fn_name, utility_para, job_para, nwk_delay):
-        
+    def __init__(self, cid, utility_fn_name, utility_para, job_gen_mean, nwk_delay):
         self.cid = cid
         self.nwk_delay = nwk_delay # should be updated
         self.utility_fn_name = utility_fn_name
         self.utility_para = utility_para
-        self.job_gen_para = job_para
+        self.job_gen_para = job_gen_mean
         self.utility_fn = Utility(self.utility_fn_name, self.utility_para)
         self.genJob(0)
          
@@ -60,10 +59,17 @@ class Client(object):
         score = self.utility_fn.get_utility(cur_ts - self.job_start_time)
         return score
 
+    def toString(self):
+        return "Client ID:", self.cid, ", start time:", self.job_start_time, \
+              ", arrive time:", self.job_arrival_time, ", hardness:", self.job_hardness
+                
+
     def getServed(self, cur_ts):
+        print self.toString()
         score = self.utility_fn.get_utility(cur_ts - self.job_start_time)
         self.served_hist += [(cur_ts, score)]
+        server_sleep_time = self.job_hardness
         # once get served, reset job creation time, and arrival time
         self.genJob(cur_ts) 
           
-        return score
+        return (score, server_sleep_time)
