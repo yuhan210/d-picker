@@ -34,7 +34,7 @@ class Client(object):
         return self.cid
          
     def hasTimedOut(self, cur_ts):
-        if self.utility_fn.has_timedout(cur_ts):
+        if self.utility_fn.has_timedout(cur_ts - self.job_start_time):
             return True
         return False
          
@@ -54,18 +54,18 @@ class Client(object):
 
     def getUtility(self, cur_ts):
         if self.job_arrival_time > cur_ts:
-            print "Error: job hasn't arrived yet!"
-            exit(-1)
+            print "Warning: job hasn't arrived yet!", cur_ts, ", ", self.job_arrival_time
+        
         score = self.utility_fn.get_utility(cur_ts - self.job_start_time)
         return score
 
-    def toString(self):
+    def toString(self, cur_ts):
         return "Client ID:", self.cid, ", start time:", self.job_start_time, \
-              ", arrive time:", self.job_arrival_time, ", hardness:", self.job_hardness
-                
+              ", arrive time:", self.job_arrival_time, ", hardness:", self.job_hardness, \
+              ", utility:", self.getUtility(cur_ts)
 
     def getServed(self, cur_ts):
-        print self.toString()
+        print self.toString(cur_ts)
         score = self.utility_fn.get_utility(cur_ts - self.job_start_time)
         self.served_hist += [(cur_ts, score)]
         server_sleep_time = self.job_hardness

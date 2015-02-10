@@ -7,6 +7,12 @@ from FIFOScheduler import *
 
 ## a discrete-time event simulator
 
+def printAllClients(ts, clients):
+    print ts
+    for client in clients:
+        print client.toString(ts) 
+    print ""
+
 if __name__ == "__main__":
 
     if ( len(sys.argv) != 3 ):
@@ -26,7 +32,7 @@ if __name__ == "__main__":
         #client = Client(i, "hinge", 4000, 500, 200)
         client = Client(i, "hinge", 1/4000.0, 500, 200)
         clients += [client]       
-        print client.toString() 
+        print client.toString(0) 
     print ""    
     # create scheduler
     greedy = Greedy()
@@ -39,6 +45,8 @@ if __name__ == "__main__":
         
         # update client info
         timedout_clients = filter(lambda x: x.hasTimedOut(cur_time) , clients)
+        if (len(timedout_clients) > 0):
+            printAllClients(cur_time, clients)
         for tc in timedout_clients:
             tc.genJob(cur_time)
         
@@ -56,3 +64,5 @@ if __name__ == "__main__":
 
    # simulation is over, get overall utility score
     print "Total score:", total_score
+
+
