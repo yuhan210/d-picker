@@ -30,10 +30,8 @@ if __name__ == "__main__":
     clients = []
     for i in xrange(client_num):
         #client = Client(i, "hinge", 4000, 500, 200)
-        client = Client(i, "hinge", 1/4000.0, 500, 200)
+        client = Client(i, "hinge", 1/2000.0, 500, 200)
         clients += [client]       
-        print client.toString(0) 
-    print ""    
     # create scheduler
     greedy = Greedy()
     fifo = FIFO()
@@ -46,13 +44,21 @@ if __name__ == "__main__":
         # update client info
         timedout_clients = filter(lambda x: x.hasTimedOut(cur_time) , clients)
         if (len(timedout_clients) > 0):
-            printAllClients(cur_time, clients)
+            print "Time:", cur_time, "Job timed out!"
+            
         for tc in timedout_clients:
+            print tc.toString(cur_time) 
+            print ""
             tc.genJob(cur_time)
         
         arrived_clients = filter(lambda x: x.getJobArrivalTime() <= cur_time, clients)
-        
+       
+
         if (cur_time >= server_wakeup_time):
+            if len(arrived_clients) > 0:
+                print "server scehduling"
+            for ac in arrived_clients:
+                print ac.toString(cur_time)
             score = 0.0        
             #(score, sleep_time) = greedy.schedule(cur_time, arrived_clients) 
             (score, sleep_time) = fifo.schedule(cur_time, arrived_clients) 
