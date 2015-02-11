@@ -60,9 +60,9 @@ class Client(object):
         return score
 
     def toString(self, cur_ts):
-        return "Client ID:", self.cid, ", start time:", self.job_start_time, \
-              ", arrive time:", self.job_arrival_time, ", hardness:", self.job_hardness, \
-              ", utility:", self.getUtility(cur_ts)
+        return "Client ID:" +  str(self.cid) + ", start time:" + str(self.job_start_time) \
+               + ", arrive time:" +  str(self.job_arrival_time) +  ", hardness:" +  str(self.job_hardness) \
+               + ", utility:" +  str(self.getUtility(cur_ts))
 
     def getServed(self, cur_ts):
         print self.toString(cur_ts)

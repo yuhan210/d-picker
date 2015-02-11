@@ -1,3 +1,4 @@
+import logging
 import sys
 import matplotlib.pyplot as plt
 from Utility import *
@@ -18,10 +19,12 @@ if __name__ == "__main__":
     if ( len(sys.argv) != 3 ):
         print "Usage:", sys.argv[0], " client_num sim_duration(ms)" 
         exit(-1)
-
+    
     client_num = int(sys.argv[1])
     sim_duration = int(sys.argv[2])
-    
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
+
     print "----- Simulation starts ------"
     print "Client number:", client_num
     print "Simulation length:", sim_duration 
@@ -44,11 +47,10 @@ if __name__ == "__main__":
         # update client info
         timedout_clients = filter(lambda x: x.hasTimedOut(cur_time) , clients)
         if (len(timedout_clients) > 0):
-            print "Time:", cur_time, "Job timed out!"
+            logger.debug( "Time: %d, Job timed out!", cur_time)
             
         for tc in timedout_clients:
-            print tc.toString(cur_time) 
-            print ""
+            logger.debug(tc.toString(cur_time) + "\n")
             tc.genJob(cur_time)
         
         arrived_clients = filter(lambda x: x.getJobArrivalTime() <= cur_time, clients)
@@ -56,12 +58,13 @@ if __name__ == "__main__":
 
         if (cur_time >= server_wakeup_time):
             if len(arrived_clients) > 0:
-                print "server scehduling"
+                logger.debug("server scehduling:")
             for ac in arrived_clients:
-                print ac.toString(cur_time)
+                logger.debug(ac.toString(cur_time))
+
             score = 0.0        
-            #(score, sleep_time) = greedy.schedule(cur_time, arrived_clients) 
-            (score, sleep_time) = fifo.schedule(cur_time, arrived_clients) 
+            (score, sleep_time) = greedy.schedule(cur_time, arrived_clients) 
+            #(score, sleep_time) = fifo.schedule(cur_time, arrived_clients) 
             server_wakeup_time = cur_time + sleep_time
             total_score += score
 
