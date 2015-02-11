@@ -1,4 +1,5 @@
 import math
+import numpy
 
 class Utility(object):
     # utility function options: 0-1, hinge, square, exponential, logistic
@@ -93,12 +94,8 @@ class Logistic():
         self.w = w
 
     def getUtility(self, x):
-        return math.log(1 + math.exp(-self.w * x), 2)
+        if x < 0:
+            return (-1) * sys.maxint 
+        return math.log((1 + numpy.exp((-1.0) * self.w * x)), 2)
 
-class Exponential():
-    
-    def __init__(self, w):
-        self.w = w
-
-#    def getUtility(self, x):
 
