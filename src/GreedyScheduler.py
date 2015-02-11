@@ -18,7 +18,7 @@ class Greedy(object):
              
         best_utility = max(map(lambda x: x.getUtility(cur_time), jobs)) 
         best_job = [job for job in jobs if job.getUtility(cur_time) == best_utility][0]
-
+        
         (score, sleep_time) = best_job.getServed(cur_time)
         self.logger.debug("Time:" +  str(cur_time) +  ", serve job:" +  str(best_job.getCid()) +  ", receiving utility:" +  \
                      str(score))

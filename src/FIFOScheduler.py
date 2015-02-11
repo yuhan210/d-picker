@@ -16,7 +16,6 @@ class FIFO(object):
         
         oldest_arrival_time = min(map(lambda x: x.getJobArrivalTime(), jobs))
         oldest_job = [job for job in jobs if job.getJobArrivalTime() == oldest_arrival_time][0]
-        
         (score, sleep_time) = oldest_job.getServed(cur_time)
         
         self.logger.debug("Time:" +  str(cur_time) +  ", serve job:" +  str(oldest_job.getCid()) +  ", receiving utility:" +  \
