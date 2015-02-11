@@ -7,7 +7,7 @@ Datacenter scheduling simulator
     2. Hinge
     3. Square
     4. Logistic
-    5. Exponential
+
 
 - Assumptions
     1. Client only sends the next job when 
