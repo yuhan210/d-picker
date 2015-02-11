@@ -28,8 +28,12 @@ class Client(object):
         self.utility_para = utility_para
         self.job_gen_para = job_gen_mean
         self.utility_fn = Utility(self.utility_fn_name, self.utility_para)
+        self.served_hist = []
         self.genJob(0)
-         
+
+    def getServedList(self):
+        return self.served_hist
+             
     def getCid(self):
         return self.cid
          
@@ -65,9 +69,9 @@ class Client(object):
                + ", utility:" +  str(self.getUtility(cur_ts))
 
     def getServed(self, cur_ts):
-        print self.toString(cur_ts)
+        print "Time:", cur_ts, " ",  self.toString(cur_ts)
         score = self.utility_fn.get_utility(cur_ts - self.job_start_time)
-        self.served_hist += [(cur_ts, score)]
+        self.served_hist += [(self.cid, cur_ts, score)]
         server_sleep_time = self.job_hardness
         # once get served, reset job creation time, and arrival time
         self.genJob(cur_ts) 
