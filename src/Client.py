@@ -69,7 +69,7 @@ class Client(object):
                + ", utility:" +  str(self.getUtility(cur_ts))
 
     def getServed(self, cur_ts):
-        print "Time:", cur_ts, " ",  self.toString(cur_ts)
+        #print "Time:", cur_ts, " ",  self.toString(cur_ts)
         score = self.utility_fn.get_utility(cur_ts - self.job_start_time)
         self.served_hist += [(self.cid, cur_ts, score)]
         server_sleep_time = self.job_hardness

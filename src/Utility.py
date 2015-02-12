@@ -1,3 +1,4 @@
+import sys
 import math
 import numpy
 
@@ -87,6 +88,11 @@ class Square():
         else:
             return (1 - self.w * x) * (1 - self.w * x)
 
+    def hasTimedOut(self, x):
+        if self.getUtility(x) == 0.0:
+            return True
+        return False
+
 class Logistic():
     # (ln 2)^(-1) ln(1 + e^(-wx))
     w = 0
@@ -97,5 +103,9 @@ class Logistic():
         if x < 0:
             return (-1) * sys.maxint 
         return math.log((1 + numpy.exp((-1.0) * self.w * x)), 2)
-
+    
+    def hasTimedOut(self, x):
+        if self.getUtility(x) < 0.001:
+            return True
+        return False
 

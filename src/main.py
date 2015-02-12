@@ -31,10 +31,13 @@ if __name__ == "__main__":
     
     # create a list of clients
     clients = []
-    for i in xrange(client_num):
+    for i in xrange(5):
         #client = Client(i, "hinge", 4000, 500, 200)
-        client = Client(i, "hinge", 1/2000.0, 500, 200)
+        client = Client(i, "0-1", 2000.0, 500, 200) 
         clients += [client]       
+    for i in xrange(5, 10):
+        client = Client(i, "hinge", 1/2000.0, 500, 200)
+        clients += [client]
     # create scheduler
     greedy = Greedy()
     fifo = FIFO()
@@ -63,8 +66,8 @@ if __name__ == "__main__":
                 logger.debug(ac.toString(cur_time))
 
             score = 0.0        
-            (score, sleep_time) = greedy.schedule(cur_time, arrived_clients) 
-            #(score, sleep_time) = fifo.schedule(cur_time, arrived_clients) 
+            #(score, sleep_time) = greedy.schedule(cur_time, arrived_clients) 
+            (score, sleep_time) = fifo.schedule(cur_time, arrived_clients) 
             server_wakeup_time = cur_time + sleep_time
             total_score += score
 
@@ -73,5 +76,6 @@ if __name__ == "__main__":
 
    # simulation is over, get overall utility score
     print "Total score:", total_score
-
+    for client in clients:
+        print client.getServedList()  
 
